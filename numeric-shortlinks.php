@@ -2,7 +2,7 @@
 /*
 Plugin Name: Numeric Shortlinks
 Description: Adds support for numeric shortlinks like <code>http://example.com/123</code>
-Version: 1.2
+Version: 1.3
 Author: Kaspars Dambis	
 */
 
@@ -12,6 +12,8 @@ add_filter( 'pre_get_shortlink', 'numeric_shortlink_head', 10, 4 );
 function numeric_shortlink_head( $return, $id, $context, $slugs ) {
 	if ( is_singular() ) 
 		return home_url( '/' . get_queried_object_id() );
+	elseif ( 'post' == $context )
+		return home_url( '/' . $id );
 
 	return $return;
 }
