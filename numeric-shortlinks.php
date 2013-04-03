@@ -21,8 +21,8 @@ add_action( 'template_redirect', 'maybe_numeric_shortlink_redirect' );
 
 function maybe_numeric_shortlink_redirect() {
 	// Get the trailing part of the URI
-	$maybe_post_id = end( explode( '/', $_SERVER['REQUEST_URI'] ) );
-
+	$maybe_post_id = end( explode( '/', trim( $_SERVER['REQUEST_URI'], '/' ) ) );
+	
 	// Check if it is numeric
 	if ( ! is_numeric( $maybe_post_id ) )
 		return;
