@@ -2,7 +2,7 @@
 /*
 Plugin Name: Numeric Shortlinks
 Description: Adds support for numeric shortlinks like <code>http://example.com/123</code>
-Version: 1.1
+Version: 1.2
 Author: Kaspars Dambis	
 */
 
@@ -22,13 +22,13 @@ add_action( 'template_redirect', 'maybe_numeric_shortlink_redirect' );
 function maybe_numeric_shortlink_redirect() {
 	// Get the trailing part of the URI
 	$maybe_post_id = end( explode( '/', trim( $_SERVER['REQUEST_URI'], '/' ) ) );
-	
+
 	// Check if it is numeric
 	if ( ! is_numeric( $maybe_post_id ) )
 		return;
 	
 	// Redirect
-	if ( $post_url = get_permalink( $uri_int ) ) {
+	if ( $post_url = get_permalink( $maybe_post_id ) ) {
 		wp_redirect( $post_url, 301 );
 		exit;	
 	}
