@@ -6,25 +6,25 @@ This plugin doesn't have any configuration options. It automatically hooks into 
 
 ## Available Filters
 
-### numeric_shortlinks_to_slug
+### numeric_shortlinks_encode
 
 Create your own mapping to post ID. Used when creating a shortlink.
 
-	add_filter( 'numeric_shortlinks_to_slug', 'my_shortlink_to_slug' );
+	add_filter( 'numeric_shortlinks_encode', 'my_shortlink_encode' );
 
-	function my_shortlink_to_slug( $post_id ) {
+	function my_shortlink_encode( $post_id ) {
 		// Do something to $post_id
 		// The resulting URL will be http://example.com/$post_id
 		return $post_id;
 	}
 
-### numeric_shortlinks_to_id
+### numeric_shortlinks_decode
 
 Map the trailing part of URL to post ID. Used when resolving a shortlink.
 
-	add_filter( 'numeric_shortlinks_to_id', 'my_shortlink_to_id' );
+	add_filter( 'numeric_shortlinks_decode', 'my_shortlink_decode' );
 
-	function my_shortlink_to_id( $slug ) {
+	function my_shortlink_decode( $slug ) {
 		// Convert $slug to a numeric $post_id
 		return $slug;
 	}
