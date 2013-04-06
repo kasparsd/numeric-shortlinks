@@ -4,6 +4,15 @@
 
 This plugin doesn't have any configuration options. It automatically hooks into the `wp_get_shortlink()` function and adds the new URL both in HTML `<head>` and any plugin that relies on shortlink functionality.
 
+## Prefer even shorter apha-numeric shortlinks?
+
+This plugin allows you to choose between numeric shortlinks that are an exact match of the post ID, or use the alpha-numeric version for even shorter links.
+
+Simply set the `numeric_shortlinks_bijection` filter to `true`, like so:
+
+	add_filter( 'enable_numeric_shortlinks_bijection', '__return_true' );
+
+
 ## Available Filters
 
 ### numeric_shortlinks_encode
