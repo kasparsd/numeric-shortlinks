@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Numeric Shortlinks
-Description: Adds support for numeric shortlinks like <code>http://example.com/123</code>
+Description: Adds support for numeric (i.e. <code>http://example.com/123</code>) and alpha-numeric (i.e. <code>http://example.com/d3E</code>) shortlinks.
 Version: 1.5
 Author: Kaspars Dambis	
 */
