@@ -2,7 +2,7 @@
 /*
 Plugin Name: Numeric Shortlinks
 Description: Adds support for numeric shortlinks like <code>http://example.com/123</code>
-Version: 1.4.2
+Version: 1.5
 Author: Kaspars Dambis	
 */
 
@@ -15,7 +15,7 @@ function numeric_shortlink_head( $return, $id, $context, $slugs ) {
 
 	$id = apply_filters( 'numeric_shortlinks_encode', $id );
 	
-	if ( is_numeric( $id ) )
+	if ( ! empty( $id ) )
 		return home_url( '/' . $id );
 
 	return $return;
@@ -39,3 +39,54 @@ function maybe_numeric_shortlink_redirect() {
 	}
 }
 
+
+add_action( 'init', 'maybe_enable_bijection_shortlinks' );
+
+function maybe_enable_bijection_shortlinks() {
+	// Disabled by default
+	if ( apply_filters( 'numeric_shortlinks_bijection', false ) )
+		new numeric_bijection_shortlinks();
+}
+
+
+class numeric_bijection_shortlinks {
+
+	var $dictionary = 'abcdefghijklmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ123456789';
+	var $base = 57; // strlen( $dictionary )
+
+
+	function numeric_bijection_shortlinks() {
+		add_filter( 'numeric_shortlinks_encode', array( $this, 'encode' ) );
+		add_filter( 'numeric_shortlinks_decode', array( $this, 'decode' ) );
+	}
+
+	function encode( $id ) {
+		$slug = array();
+
+		while ( $id > 0 ) {
+			$slug[] = $this->dictionary[ $id % $this->base ];
+			$id = floor( $id / $this->base );
+		}
+
+		return implode( '', array_reverse( $slug ) );
+	}
+
+	function decode( $slug ) {
+		$id = 0;
+
+		foreach ( str_split( $slug ) as $char ) {
+			$pos = strpos( $this->dictionary, $char );
+
+			if ( $pos === false )
+				return $slug;
+
+			$id = $id * $this->base + $pos;
+		}
+
+		if ( $id )
+			return $id;
+
+		return $slug;
+	}
+
+}
