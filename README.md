@@ -10,7 +10,7 @@ This plugin allows you to choose between numeric shortlinks that are an exact ma
 
 Simply set the `numeric_shortlinks_bijection` filter to `true`, like so:
 
-	add_filter( 'enable_numeric_shortlinks_bijection', '__return_true' );
+	add_filter( 'numeric_shortlinks_bijection', '__return_true' );
 
 
 ## Available Filters
