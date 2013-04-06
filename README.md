@@ -6,13 +6,13 @@ This plugin doesn't have any configuration options. It automatically hooks into 
 
 ## Available Filters
 
-### numeric_shortlinks_to_url
+### numeric_shortlinks_to_slug
 
 Create your own mapping to post ID. Used when creating a shortlink.
 
-	add_filter( 'numeric_shortlinks_to_url', 'my_shortlink_to_url' );
+	add_filter( 'numeric_shortlinks_to_slug', 'my_shortlink_to_slug' );
 
-	function my_shortlink_to_url( $post_id ) {
+	function my_shortlink_to_slug( $post_id ) {
 		// Do something to $post_id
 		// The resulting URL will be http://example.com/$post_id
 		return $post_id;
