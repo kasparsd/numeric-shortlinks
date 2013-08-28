@@ -2,7 +2,7 @@
 /*
 Plugin Name: Numeric Shortlinks
 Description: Adds support for numeric (i.e. <code>http://example.com/123</code>) and alpha-numeric (i.e. <code>http://example.com/d3E</code>) shortlinks.
-Version: 1.5
+Version: 1.6
 Author: Kaspars Dambis	
 */
 
@@ -14,7 +14,7 @@ function numeric_shortlink_head( $return, $id, $context, $slugs ) {
 		$id = get_queried_object_id();
 
 	$id = apply_filters( 'numeric_shortlinks_encode', $id );
-	
+
 	if ( ! empty( $id ) )
 		return home_url( '/' . $id );
 
@@ -25,17 +25,33 @@ function numeric_shortlink_head( $return, $id, $context, $slugs ) {
 add_action( 'template_redirect', 'maybe_numeric_shortlink_redirect' );
 
 function maybe_numeric_shortlink_redirect() {
+
+	$request = $_SERVER['REQUEST_URI'];
+
+	// Make sure we are not viewing a paginated URL
+	if ( strpos( $request, '/page/' ) !== false )
+		return;
+
+	// Get the trailing part of the request URL
+	$request = basename( $request );
+
+	// Remove query vars from the request
+	$request = strtok( $request, '?' );
+
+	// Trim slashes
+	$request = trim( $request, '/' );
+
 	// Get the trailing part of the URI
-	$maybe_post_id = apply_filters( 'numeric_shortlinks_decode', end( explode( '/', trim( $_SERVER['REQUEST_URI'], '/' ) ) ) );
+	$maybe_post_id = apply_filters( 'numeric_shortlinks_decode', $request );
 
 	// Check if it is numeric
 	if ( ! is_numeric( $maybe_post_id ) )
 		return;
-	
+
 	// Redirect
 	if ( $post_url = get_permalink( $maybe_post_id ) ) {
 		wp_redirect( $post_url, 301 );
-		exit;	
+		exit;
 	}
 }
 
