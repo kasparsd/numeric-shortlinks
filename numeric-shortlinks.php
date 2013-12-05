@@ -2,7 +2,10 @@
 /*
 Plugin Name: Numeric Shortlinks
 Description: Adds support for numeric (i.e. <code>http://example.com/123</code>) and alpha-numeric (i.e. <code>http://example.com/d3E</code>) shortlinks.
-Version: 1.6
+Version: 1.6.1
+Plugin URI: https://github.com/kasparsd/numeric-shortlinks
+GitHub URI: https://github.com/kasparsd/numeric-shortlinks
+Author URI: http://kaspars.net
 Author: Kaspars Dambis	
 */
 
