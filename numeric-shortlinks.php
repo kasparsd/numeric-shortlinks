@@ -27,7 +27,7 @@ function numeric_shortlink_head( $return, $id, $context, $slugs ) {
 }
 
 
-add_action( 'template_redirect', 'maybe_numeric_shortlink_redirect' );
+add_action( 'template_redirect', 'maybe_numeric_shortlink_redirect', 5 );
 
 function maybe_numeric_shortlink_redirect() {
 
