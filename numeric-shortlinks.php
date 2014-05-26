@@ -2,7 +2,7 @@
 /*
 Plugin Name: Numeric Shortlinks
 Description: Adds support for numeric (i.e. <code>http://example.com/123</code>) and alpha-numeric (i.e. <code>http://example.com/d3E</code>) shortlinks.
-Version: 1.6.3
+Version: 1.6.4
 Plugin URI: https://github.com/kasparsd/numeric-shortlinks
 GitHub URI: https://github.com/kasparsd/numeric-shortlinks
 Author URI: http://kaspars.net
@@ -14,13 +14,13 @@ add_filter( 'pre_get_shortlink', 'numeric_shortlink_head', 10, 4 );
 
 function numeric_shortlink_head( $return, $id, $context, $slugs ) {
 
-	if ( is_singular() ) 
+	if ( empty( $id ) && is_singular() ) 
 		$id = get_queried_object_id();
 
 	$id = apply_filters( 'numeric_shortlinks_encode', $id );
 
 	if ( ! empty( $id ) )
-		return home_url( $id );
+		return home_url( '/' . $id );
 
 	return $return;
 
