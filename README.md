@@ -41,5 +41,5 @@ Map the trailing part of URL to post ID. Used when resolving a shortlink.
 ## Author
 
 Created by **Kaspars Dambis**:  
-[konstruktors.com](http://konstruktors.com)  
+[kaspars.net](http://kaspars.net)  
 [@konstruktors](http://twitter.com/konstruktors)
