@@ -2,7 +2,7 @@
 /*
 Plugin Name: Numeric Shortlinks
 Description: Adds support for numeric (i.e. <code>http://example.com/123</code>) and alpha-numeric (i.e. <code>http://example.com/d3E</code>) shortlinks.
-Version: 1.6.4
+Version: 1.6.5
 Plugin URI: https://github.com/kasparsd/numeric-shortlinks
 GitHub URI: https://github.com/kasparsd/numeric-shortlinks
 Author URI: http://kaspars.net
@@ -35,6 +35,12 @@ function maybe_numeric_shortlink_redirect() {
 
 	// Make sure this is a 404 request
 	if ( ! is_404() )
+		return;
+
+	$request_parts = explode( '/', $wp->request );
+
+	// Make sure that this is not a paginatad request
+	if ( count( $request_parts ) !== 1 )
 		return;
 
 	// Get the trailing part of the request URL
